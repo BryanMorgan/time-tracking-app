@@ -1,0 +1,601 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+  
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+}
+
+.App-header {
+    background-color: #222;
+    height: 84px;
+    padding: 20px;
+    color: white;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.App {
+    min-width: 320px;
+    max-width: 1200px;
+    margin: 0 auto;    
+}
+
+nav a {
+    margin: 20px;
+}
+
+.Global--dimmer-loader {
+    height: 200px;
+}
+
+.Home--link-list {
+    font-size: 1.2em;
+    padding: 20px;
+}
+
+/**  Account/Login/Register **/
+
+.Profile-background {
+    background: url(images/plant-background.jpg) center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
+
+.Profile-link-message {
+    margin-top: 10px;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.Profile-container {
+    margin-top: 2em;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.Profile-container.login {
+    height: 70%;
+}
+
+.Profile-form {
+    max-width: 500px;
+    width: 400px;
+}
+
+.Profile-error {
+    text-align: left;
+}
+
+.MyProfile-container {
+    max-width: 600px;
+    margin: 3em auto;
+}
+
+.Account-container {
+    max-width: 600px;
+    margin: 3em auto;
+}
+
+.Account-billing-summary-date {
+    background: none;
+    font-size: 1em;
+}
+
+/** Navigation **/
+
+.Navigation-menu-profile {
+    background-color: #ededed;
+}
+
+.Navigation-menu-name {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.Navigation-menu-company {
+    font-size: 1em;
+}
+
+/** Time Entry **/
+
+.Time--container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 20px;
+    height: 100%;
+}
+
+.Time--navigation {
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    width: 100%;
+}
+
+.Time--table {
+    max-width: 1200px;
+}
+
+.Time--cell-container {
+    width: 52px;
+}
+
+.ui.input.Time--cell-container input {
+    font-weight: bold;
+    padding-left: 2px;
+    padding-right: 5px;
+    text-align: right;
+}
+
+.ui.input.Time--cell-container-footer input {
+    background-color: #efefef;
+}
+
+.ui.disabled.input.Time--cell-container-footer {
+    opacity: 1;
+}
+
+.ui.table th.Time--table-header-cell {
+    text-align: center;
+    padding-right: 0;
+    padding-left: 8px;
+}
+
+.ui.table td.Time--table-header-cell-delete {
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: center;
+}
+
+.ui.table td.Time--table-cell {
+    text-align: center;
+    padding-right: 0;
+    padding-left: 8px;
+}
+
+.ui.table th.Time--table-footer-cell {
+    text-align: center;
+    padding-right: 0;
+    padding-left: 8px;
+    font-weight: bold;
+}
+
+.Time--header-date {
+    font-size: 0.88em;
+}
+
+.Time--date-picker-container {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.Time--date-picker {
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.9em;
+}
+
+.ui.modal.Time--project-task-modal {
+    top: 30%;
+}
+
+.Time--loader-inline {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.Time--table-client-name {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+/*** MOBILE VIEWS ***/
+
+@media only screen and (max-width: 767px) {
+
+    .Time--container-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: normal;
+        margin-top: 2.85714286em;
+        height: calc(100% - 2.85714286em);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: auto;
+        vertical-align: middle;
+        bottom: auto;
+        width: 100%;
+    }
+
+    .Time--mobile-navigation-top {
+        width: 100%;
+        flex-shrink: 0;
+
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+
+    .Time--mobile-navigation-buttons-date-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+    }
+
+    .ui.button.Time--mobile-navigation-button {
+        margin: 0;
+    }
+
+    .Time--mobile-navigation-date-container {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .Time--mobile-navigation-date-text {
+        font-size: 1em;
+        font-weight: bold;
+        padding: 10px;
+        min-width: 148px;
+    }
+
+    .Time--mobile-navigation-date-picker {
+        margin: auto 0 auto 20px;
+    }
+
+    .Time--table-container {
+        flex-grow: 1;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .Time--mobile-fixed-footer {
+        flex-shrink: 0;
+        border-radius: 0px;
+        margin: 0px;
+        height: 50px;
+    }
+
+    .Time--loader-inline-mobile {
+        display: inline;
+        padding-top: 3px;
+        min-width: 32px;
+    }
+
+    /* Mobile Header - Weekday Header */
+    .Time--header-day-row-mobile {
+        display: flex;
+    }
+
+    .ui.table td.Time--header-day-mobile {
+        padding-left: 0;
+        padding-right: 0;
+        flex-basis: 0;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-left: 1px solid lightgray;
+    }
+
+    .Time--header-day-weekday-mobile {
+        font-size: 1.0em;
+        font-weight: bold;
+    }
+
+    .Time--header-day-total-mobile {
+        text-align: center;
+        max-width: 70px;
+        overflow: hidden;
+        font-size: 0.9em;
+    }
+
+    .Time--table-project-name {
+        font-size: 0.9em;
+    }
+
+    .Time--table-task-name {
+        font-size: 0.9em;
+    }
+
+}
+
+/** Project/Client/Task **/
+.Projects--container {
+    max-width: 1200px;
+}
+
+.Projects--container-create-update {
+    margin: 20px;
+}
+
+.Project--tab-containers {
+    margin-top: 20px;
+}
+
+.ui.table td.Project--summary-table-client-cell {
+    padding: 5px;
+    margin: 0;
+}
+
+.Project--summary-table-client-row {
+    background: rgb(249, 250, 251);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.Projects--button-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Projects--button-row-right {
+    justify-content: flex-end;
+}
+
+.Projects--button-row-title {
+    margin: auto 0;
+}
+
+.ui.table th.Projects--archived-table-header {
+    background-color: black;
+    color: white;
+}
+
+.Projects--archived-table-no-archived-text {
+    margin-top: 30px;
+}
+
+.ui.table td.Project--task-table-task-name {
+    max-width: 80px;
+    white-space: normal;
+}
+
+.ui.input.Project--task-table-rate input {
+    text-align: right;
+}
+
+.ui.table td.Project--task-table-billable {
+    text-align: center;
+}
+
+.ui.table td.Project--task-table-rate-container {
+    padding: 5px;
+}
+
+.ui.table td.Project--task-table-delete {
+    padding: 0;
+}
+
+.ui.icon.button.Project--task-table-delete-button {
+    padding: 5px;
+}
+
+.Project--task-table-footer-buttons {
+    display: flex;
+}
+
+.Project--task-bottom-button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Project--task-bottom-add-task-button {
+
+}
+
+.Project--empty-table-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 200px;
+}
+
+.Project--empty-table-row-content {
+    text-align: center;
+}
+
+.ui.icon.button.Projects--new-client-button {
+    margin-bottom: 10px;
+}
+
+/* ---- Clients ---- */
+.Clients--summary-table-row {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.Client--bottom-button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* ---- Tasks ---- */
+
+.Task--bottom-button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* ---- Reporting ---- */
+.Reporting--container {
+    max-width: 1200px;
+}
+
+.Reporting--table-cell {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.Reporting--navigation-container {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Reporting--navigation-top-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Reporting--navigation-middle-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Reporting--navigation-bottom-row {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.Reporting--navigation-bottom-row div:first-child {
+    margin-right: 5px;
+}
+
+.Reporting--navigation-time-dropdown {
+    max-width: 100px;
+}
+
+.Reporting--navigation-time-display {
+    font-size: 1.1em;
+    font-weight: bold;
+    align-self: center;
+}
+
+.Reporting--navigation-left-right-buttons {
+    align-self: center;
+}
+
+
+/* Metrics */
+.Reporting--summary-metrics-container {
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.Reporting--summary-metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 160px;
+    padding: 10px;
+    border: 4px solid #9a9a9a;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.Reporting--summary-metric-value {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+
+@media only screen and (max-width: 767px) {
+
+    .Mobile-offset {
+        margin-top: 50px;
+    }
+
+    .Projects--container-create-update {
+        margin-top: 50px;
+    }
+
+    .ui.table thead th.Project--task-table-billable {
+        padding: 3px;
+    }
+
+    .ui.input.Project--task-table-rate {
+        font-size: 0.9em;
+        max-width: 90px;
+    }
+
+    .Project--task-table-footer-buttons {
+        flex-flow: wrap;
+        justify-content: flex-end;
+    }
+
+    .ui.button.Project--task-table-footer-add-task-button {
+        margin-top: 5px;
+    }
+
+    .Reporting--table-cell {
+        max-width: 23vw;
+        font-size: 0.9em;
+    }
+
+    .Reporting--table-client-name {
+        font-size: 0.9em;
+        font-weight: bold;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .Reporting--table-name {
+        font-size: 0.9em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .Reporting--table-footer {
+        font-size: 0.9em;
+    }
+
+    .Reporting--summary-metric-value {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .Reporting--summary-metric {
+        min-width: 150px;
+        padding: 5px;
+        border: 3px solid #9a9a9a;
+    }
+
+    .Reporting--summary-metric-value {
+        font-size: 1.1em;
+    }
+
+    .Reporting--summary-metric-name {
+        font-size: 0.9em;
+    }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "time-tracking-app",
+  "version": "1.0.0",
+  "description": "Web application for tracking time in projects and tasks",
+  "author": "Bryan Morgan",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "parcel public/index.html",
+    "build": "parcel build public/index.html"
+  },
+  "dependencies": {
+    "moment": "^2.29.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.14.0",
+    "react-datepicker": "^3.3.0",
+    "react-dom": "^16.14.0",
+    "react-redux": "^7.2.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "browserslist": [
+    "last 2 ios_saf versions",
+    "last 2 and_chr versions",
+    "last 2 chrome versions",
+    "last 2 safari versions",
+    "last 2 ff versions"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BryanMorgan/time-tracking-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BryanMorgan/time-tracking-app/issues"
+  }
+}

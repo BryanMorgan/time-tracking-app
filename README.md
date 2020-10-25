@@ -4,7 +4,7 @@
 
 ![CI](https://github.com/BryanMorgan/time-tracking-app/workflows/CI/badge.svg)
 
-Reference app for tracking time, projects, and tasks. Built with React, the reference app leverages the [Golang Time Tracking API](https://github.com/BryanMorgan/time-tracking-app).
+Reference app for tracking time, projects, and tasks. Built with React. App leverages the [Golang Time Tracking API](https://github.com/BryanMorgan/time-tracking-app).
 
 <img width="896" src="https://user-images.githubusercontent.com/479339/97118294-6c39e000-16c6-11eb-9a13-baefeb8e2cfa.png">
 

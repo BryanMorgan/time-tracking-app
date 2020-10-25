@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { Button, Modal } from 'semantic-ui-react'
 import { deleteProjectRowApi } from '../service/time'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 const DeleteProjectTimeRowModal = (props) => {
 
@@ -43,8 +43,8 @@ DeleteProjectTimeRowModal.propTypes = {
     onCancel: PropTypes.func,
     projectId: PropTypes.number,
     taskId: PropTypes.number,
-    startDate: PropTypes.instanceOf(moment),
-    endDate: PropTypes.instanceOf(moment),
+    startDate: PropTypes.instanceOf(dayjs),
+    endDate: PropTypes.instanceOf(dayjs),
 }
 
 export default connect()(DeleteProjectTimeRowModal)

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
 import {showServerErrorModal, showSessionExpiredModal} from '../action/authenticate'
 
 export const SHORT_DATE_FORMAT = 'YYYY-MM-DD'
@@ -55,8 +55,8 @@ export function getShortDateString(date) {
         return ''
     }
 
-    if (!(date instanceof moment)) {
-        date = moment(date)
+    if (!(date instanceof dayjs)) {
+        date = dayjs(date)
     }
 
     return date.format(SHORT_DATE_FORMAT)
@@ -67,7 +67,7 @@ export function isDateFormatValid(dateString) {
         return false
     }
 
-    let date = moment(dateString, SHORT_DATE_FORMAT, true)
+    let date = dayjs(dateString, SHORT_DATE_FORMAT)
 
     if (!date.isValid()) {
         return false

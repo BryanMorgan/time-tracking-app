@@ -1,4 +1,6 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -25,8 +27,11 @@ import {
 
 const TIME_BASE_URL = '/time/'
 
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
+
 const TimePage = (props) => {
-    const now = moment().startOf('day')
+    const now = dayjs().startOf('day')
 
     const [bootupLoading, setBootupLoading] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -35,7 +40,7 @@ const TimePage = (props) => {
     // Time Entry
     const [currentDate, setCurrentDate] = useState(now)
     const [startDate, setStartDate] = useState(now)
-    const [endDate, setEndDate] = useState(moment(now).add(7, 'day'),)
+    const [endDate, setEndDate] = useState(dayjs(now).add(7, 'day'),)
     const [projectTimeEntryRows, setProjectTimeEntryRows] = useState([])
 
     const [enableSaveButton, setEnableSaveButton] = useState(false)
@@ -70,11 +75,10 @@ const TimePage = (props) => {
     const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short' })
     const longWeekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'long' })
 
-
     useEffect(() => {
         let mobile = window.innerWidth <= MOBILE_WIDTH
         const { pathname } = props.location
-        let startDateFromPath = moment(getStartDateFromPath(pathname))
+        let startDateFromPath = dayjs(getStartDateFromPath(pathname))
 
         setBootupLoading(true)
         setIsMobile(mobile)
@@ -82,7 +86,7 @@ const TimePage = (props) => {
         getTime(startDateFromPath)
         getProjectsAndTasks()
         window.addEventListener('resize', onResize);
-            
+
         return () => {
             if (timeSaveTimer.current) {
                 clearTimeout(timeSaveTimer.current)
@@ -93,7 +97,7 @@ const TimePage = (props) => {
 
     useEffect(() => {
         const { pathname } = props.location
-        let newStartDate = moment(getStartDateFromPath(pathname))
+        let newStartDate = dayjs(getStartDateFromPath(pathname))
 
         if (newStartDate.isAfter(endDate) || newStartDate.isBefore(startDate)) {
             getTime(newStartDate)
@@ -145,13 +149,13 @@ const TimePage = (props) => {
         }
 
         if (dateString === null) {
-            dateString = getShortDateString(moment())
+            dateString = getShortDateString(dayjs())
         }
 
         // Make sure date string is valid
         if (!isDateFormatValid(dateString)) {
             console.error('Invalid date path: ', dateString)
-            dateString = getShortDateString(moment())
+            dateString = getShortDateString(dayjs())
         }
 
         return dateString
@@ -171,11 +175,11 @@ const TimePage = (props) => {
 
     function getTime(startDay) {
         if (!startDay) {
-            startDay = moment()
+            startDay = dayjs()
         }
 
-        // Convert moment to simple short date string
-        if (startDay instanceof moment) {
+        // Convert dayjs to simple short date string
+        if (startDay instanceof dayjs) {
             startDay = getShortDateString(startDay)
         }
 
@@ -186,17 +190,17 @@ const TimePage = (props) => {
             .then(json => {
                 let savedProjectRows = buildProjectRowsFromJson(json)
 
-                setStartDate(moment(json.start))
-                setCurrentDate(moment(startDay))
-                setEndDate(moment(json.end))
+                setStartDate(dayjs(json.start))
+                setCurrentDate(dayjs(startDay))
+                setEndDate(dayjs(json.end))
                 setProjectTimeEntryRows(savedProjectRows)
             })
             .catch(serviceError => {
                 console.error("Service Error", serviceError)
                 props.handleServiceError(serviceError)
                 setStartDate(now)
-                setCurrentDate(moment(now))
-                setEndDate(moment(now).add(7, 'day'))
+                setCurrentDate(dayjs(now))
+                setEndDate(dayjs(now).add(7, 'day'))
             })
             .finally(() => {
                 setBootupLoading(false)
@@ -379,7 +383,7 @@ const TimePage = (props) => {
                     clientName: projectsModalClient.text,
                 })
 
-                for (let day = moment(startDate); day.isSameOrBefore(endDate); day.add(1, 'day')) {
+                for (let day = dayjs(startDate); day.isSameOrBefore(endDate); day = day.add(1, 'day')) {
                     let shortDate = getShortDateString(day)
                     projectTimeRow.entries[shortDate] = createTimeEntry(0.0)
                 }
@@ -421,7 +425,7 @@ const TimePage = (props) => {
     }
 
     function onPreviousDayClick() {
-        let newCurrentDate = moment(currentDate).subtract(1, 'day')
+        let newCurrentDate = dayjs(currentDate).subtract(1, 'day')
 
         if (newCurrentDate.isBefore(startDate)) {
             saveDataIfNeeded()
@@ -435,7 +439,7 @@ const TimePage = (props) => {
     }
 
     function onNextDayClick() {
-        let newCurrentDate = moment(currentDate).add(1, 'day')
+        let newCurrentDate = dayjs(currentDate).add(1, 'day')
 
         if (newCurrentDate.isAfter(endDate)) {
             saveDataIfNeeded()
@@ -451,7 +455,7 @@ const TimePage = (props) => {
     function onThisWeekClick() {
         if (!isShowingCurrentWeek()) {
             saveDataIfNeeded()
-                .then(setCurrentDate(moment()))
+                .then(setCurrentDate(dayjs()))
                 .then(props.history.push(TIME_BASE_URL))
                 .catch(console.error)
         }
@@ -459,7 +463,7 @@ const TimePage = (props) => {
 
     function onDatePickerChange(date) {
         saveDataIfNeeded()
-            .then(setCurrentDate(moment(date)))
+            .then(setCurrentDate(dayjs(date)))
             .then(props.history.push(TIME_BASE_URL + getShortDateString(date)))
             .catch(console.error)
     }
@@ -474,14 +478,14 @@ const TimePage = (props) => {
     }
 
     function updateStartDate(days) {
-        let newStartDate = moment(startDate).add(days, 'day')
+        let newStartDate = dayjs(startDate).add(days, 'day')
         props.history.push(TIME_BASE_URL + getShortDateString(newStartDate))
     }
 
     function showProjectTaskModal() { setOpenAddProjectsModal(true) }
     function closeProjectTaskModal() { setOpenAddProjectsModal(false) }
 
-     function onSuccessDeleteProjectRow() {
+    function onSuccessDeleteProjectRow() {
         // Filter out the deleted project rows
         let updatedProjectRows = projectTimeEntryRows.filter(project => {
             if (project.projectId === deleteProjectRowProjectId && project.taskId === deleteProjectRowTaskId) {
@@ -610,7 +614,7 @@ const TimePage = (props) => {
                 if (timeSaveTimer.current) {
                     clearTimeout(timeSaveTimer.current)
                 }
-        
+
                 let updatedChangedProjectTimeEntryCache = { ...changedProjectTimeEntryCache }
                 let updatedProjectTimeEntryRows = projectTimeEntryRows.slice()
 
@@ -659,7 +663,7 @@ const TimePage = (props) => {
 
     function onHeaderDayClick(dateString) {
         if (!currentDate.isSame(dateString)) {
-            setCurrentDate(moment(dateString))
+            setCurrentDate(dayjs(dateString))
             props.history.push(TIME_BASE_URL + getShortDateString(dateString))
         }
     }
@@ -733,8 +737,7 @@ const TimePage = (props) => {
             )
 
             // For each row, loop through the columns (weeks or day on mobile) and add up the column sums and create cells
-            for (let date = moment(weekStartDate); date.isSameOrBefore(weekEndDate); date.add(1, 'day')) {
-                //            for (let date = moment(startDate); date.isSameOrBefore(endDate); date.add(1, 'day')) {
+            for (let date = dayjs(weekStartDate); date.isSameOrBefore(weekEndDate); date = date.add(1, 'day')) {
                 let dateString = getShortDateString(date)
                 let valueString = ''
                 let value = 0
@@ -800,8 +803,9 @@ const TimePage = (props) => {
             )
         }
     }
+
     // Create the header and footer rows
-    for (let date = moment(weekStartDate); date.isSameOrBefore(weekEndDate); date.add(1, 'day')) {
+    for (let date = dayjs(weekStartDate); date.isSameOrBefore(weekEndDate); date = date.add(1, 'day')) {
         // Create the header and footer rows
         let dateString = getShortDateString(date)
         let columnTotal = columnTotals[dateString] || 0

@@ -18,7 +18,9 @@ import {
     DATE_PICKER_FORMAT
 } from '../components/Util'
 import { MOBILE_WIDTH } from '../components/Constants'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import weekday from 'dayjs/plugin/weekday';
+import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import ReportsProjectsPage from './ReportsProjectsPage'
 import ReportsTasksPage from './ReportsTasksPage'
 import ReportsPersonPage from './ReportsPersonPage'
@@ -67,12 +69,15 @@ const timeRangeOptions = [
     { text: 'Custom', value: CUSTOM_TIME_RANGE },
 ]
 
+dayjs.extend(weekday);
+dayjs.extend(quarterOfYear)
+
 const ReportsContainerPage = (props) => {
     const [loading, setLoading] = useState(false)
     const [mobile, setMobile] = useState(false)
     const [clients, setClients] = useState([])
-    const [fromDate, setFromDate] = useState(moment().endOf('week'))
-    const [toDate, setToDate] = useState(moment().endOf('week'))
+    const [fromDate, setFromDate] = useState(dayjs().endOf('week'))
+    const [toDate, setToDate] = useState(dayjs().endOf('week'))
     const [page, setPage] = useState(0)
     const [timeRangeChoice, setTimeRangeChoice] = useState(YEAR_TIME_RANGE)
     const [showCustomDateRange, setShowCustomDateRange] = useState(false)
@@ -153,8 +158,8 @@ const ReportsContainerPage = (props) => {
     }
 
     function getFromDateForTimeRange(timeRangeChoice) {
-        let fromDate = moment()
-        let toDate = moment()
+        let fromDate = dayjs()
+        let toDate = dayjs()
         switch (timeRangeChoice) {
             case WEEK_TIME_RANGE:
                 fromDate = fromDate.startOf('week')
@@ -174,7 +179,7 @@ const ReportsContainerPage = (props) => {
                 toDate = toDate.endOf('year')
                 break
             case ALL_TIME_RANGE:
-                fromDate = moment(0)
+                fromDate = dayjs(0)
                 toDate = toDate.add(100, 'years')
                 break
             case CUSTOM_TIME_RANGE:
@@ -389,13 +394,13 @@ const ReportsContainerPage = (props) => {
     }
 
     function adjustForWeekStart(fromDate, toDate, weekStart) {
-        let todayWeekday = moment().weekday()
+        let todayWeekday = dayjs().weekday()
         if (weekStart <= todayWeekday) {
-            fromDate.add(weekStart, 'days')
-            toDate.add(weekStart, 'days')
+            fromDate = fromDate.add(weekStart, 'days')
+            toDate = toDate.add(weekStart, 'days')
         } else {
-            fromDate.subtract(7 - weekStart, 'days')
-            toDate.subtract(7 - weekStart, 'days')
+            fromDate = fromDate.subtract(7 - weekStart, 'days')
+            toDate = toDate.subtract(7 - weekStart, 'days')
         }
     }
 
@@ -437,24 +442,24 @@ const ReportsContainerPage = (props) => {
         let newFromDate, newToDate
         switch (timeRangeChoice) {
             case WEEK_TIME_RANGE:
-                newFromDate = moment(fromDate).add(amount, 'weeks')
-                newToDate = moment(toDate).add(amount, 'weeks')
+                newFromDate = dayjs(fromDate).add(amount, 'weeks')
+                newToDate = dayjs(toDate).add(amount, 'weeks')
                 break
             case MONTH_TIME_RANGE:
-                newFromDate = moment(fromDate).add(amount, 'months')
-                newToDate = moment(toDate).add(amount, 'months')
+                newFromDate = dayjs(fromDate).add(amount, 'months')
+                newToDate = dayjs(toDate).add(amount, 'months')
                 break
             case QUARTER_TIME_RANGE:
-                newFromDate = moment(fromDate).add(amount * 3, 'months')
-                newToDate = moment(toDate).add(amount * 3, 'months')
+                newFromDate = dayjs(fromDate).add(amount * 3, 'months')
+                newToDate = dayjs(toDate).add(amount * 3, 'months')
                 break
             case YEAR_TIME_RANGE:
-                newFromDate = moment(fromDate).add(amount, 'years')
-                newToDate = moment(toDate).add(amount, 'years')
+                newFromDate = dayjs(fromDate).add(amount, 'years')
+                newToDate = dayjs(toDate).add(amount, 'years')
                 break
             default:
-                newFromDate = moment(fromDate).add(amount, 'months')
-                newToDate = moment(toDate).add(amount, 'months')
+                newFromDate = dayjs(fromDate).add(amount, 'months')
+                newToDate = dayjs(toDate).add(amount, 'months')
                 console.error('Invalid time range choice: ' + timeRangeChoice)
                 break
         }
@@ -471,19 +476,19 @@ const ReportsContainerPage = (props) => {
     function getTimeDisplay() {
         switch (timeRangeChoice) {
             case WEEK_TIME_RANGE:
-                return moment(fromDate).format('DD') + ' - ' + moment(toDate).format('DD MMM YYYY')
+                return dayjs(fromDate).format('DD') + ' - ' + dayjs(toDate).format('DD MMM YYYY')
             case MONTH_TIME_RANGE:
-                return moment(fromDate).format('MMM YYYY')
+                return dayjs(fromDate).format('MMM YYYY')
             case QUARTER_TIME_RANGE:
-                return moment(fromDate).format('DD MMM') + ' - ' + moment(toDate).format('DD MMM YYYY')
+                return dayjs(fromDate).format('DD MMM') + ' - ' + dayjs(toDate).format('DD MMM YYYY')
             case YEAR_TIME_RANGE:
-                return moment(fromDate).format('YYYY')
+                return dayjs(fromDate).format('YYYY')
             case ALL_TIME_RANGE:
                 return 'All Time'
             case CUSTOM_TIME_RANGE:
-                return moment(fromDate).format('DD MMM YYYY') + ' - ' + moment(toDate).format('DD MMM YYYY')
+                return dayjs(fromDate).format('DD MMM YYYY') + ' - ' + dayjs(toDate).format('DD MMM YYYY')
             default:
-                return moment(fromDate).format('DD MMM YYYY') + ' - ' + moment(toDate).format('DD MMM YYYY')
+                return dayjs(fromDate).format('DD MMM YYYY') + ' - ' + dayjs(toDate).format('DD MMM YYYY')
         }
     }
 
@@ -515,28 +520,28 @@ const ReportsContainerPage = (props) => {
                     <div className='Reporting--navigation-bottom-row'>
                         <DatePicker
                             name='fromDate'
-                            selected={moment(fromDate).toDate()}
+                            selected={dayjs(fromDate).toDate()}
                             onChange={onChangeFromDatePicker}
                             customInput={<CustomDateInput label='From:' ref={customFromDateRef} />}
                             dateFormat={DATE_PICKER_FORMAT}
                             showYearDropdown
                             dropdownMode="select"
                             monthsShown={1}
-                            locale={moment.locale(locale)}
+                            locale={dayjs.locale(locale)}
                             todayButton="Go to Today"
                             popperPlacement="top-start"
                         />
 
                         <DatePicker
                             name='toDate'
-                            selected={moment(toDate).toDate()}
+                            selected={dayjs(toDate).toDate()}
                             onChange={onChangeToDatePicker}
                             customInput={<CustomDateInput label='To:' ref={customToDateRef} />}
                             dateFormat={DATE_PICKER_FORMAT}
                             monthsShown={1}
                             showYearDropdown
                             dropdownMode="select"
-                            locale={moment.locale(locale)}
+                            locale={dayjs.locale(locale)}
                             todayButton="Go to Today"
                             popperPlacement="bottom-start"
                             popperModifiers={{
@@ -609,7 +614,7 @@ const ReportsContainerPage = (props) => {
     )
 }
 
-const CustomDateInput = forwardRef(({ label, value, onClick}, _ref) => (
+const CustomDateInput = forwardRef(({ label, value, onClick }, _ref) => (
     <Button as='div' labelPosition='left' ref={_ref}>
         <Label color='blue'>{label}</Label>
         <Button size='small' basic className="Reporting--custom-date-input" onClick={onClick}>

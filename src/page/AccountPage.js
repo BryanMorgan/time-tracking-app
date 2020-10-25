@@ -8,7 +8,6 @@ import { updateAccountApi, getAccountApi } from '../service/account'
 import { updateAccountSuccessful } from '../action/authenticate'
 import { handleServiceError } from '../components/Util'
 import AddUserModal from '../components/AddUserModal'
-import moment from 'moment'
 
 const requiredAction = { content: 'Required', disabled: true, color: 'red' }
 

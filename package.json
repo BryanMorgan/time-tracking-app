@@ -10,7 +10,7 @@
     "build": "parcel build public/index.html"
   },
   "dependencies": {
-    "moment": "^2.29.0",
+    "dayjs": "^1.9.3",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-datepicker": "^3.3.0",

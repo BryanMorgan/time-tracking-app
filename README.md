@@ -6,12 +6,8 @@
 
 Reference app for tracking time, projects, and tasks. Built with React, the reference app leverages the [Golang Time Tracking API](https://github.com/BryanMorgan/time-tracking-app).
 
+<img width="896" src="https://user-images.githubusercontent.com/479339/97118294-6c39e000-16c6-11eb-9a13-baefeb8e2cfa.png">
 
-<img align="left" width="133" src="https://user-images.githubusercontent.com/479339/96385971-45baf880-114c-11eb-8cbd-968c9330544c.png">
-<img align="left"  width="400" src="https://user-images.githubusercontent.com/479339/96385942-0be9f200-114c-11eb-8028-d4dd9cd69ed4.png">
-<img width="300" src="https://user-images.githubusercontent.com/479339/96386268-66844d80-114e-11eb-8c6d-6b5c0e84a34f.png">
-<img align="left" width="350" src="https://user-images.githubusercontent.com/479339/96385864-81a18e00-114b-11eb-9bf8-7580defb3c31.png">
-<img width="150" src="https://user-images.githubusercontent.com/479339/96386347-1659bb00-114f-11eb-9f40-7db19c8db4ec.png">
 
 
 

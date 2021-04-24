@@ -1,13 +1,12 @@
 {
   "name": "time-tracking-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web application for tracking time in projects and tasks",
   "author": "Bryan Morgan",
   "license": "MIT",
-  "main": "src/index.js",
   "scripts": {
-    "start": "parcel public/index.html",
-    "build": "parcel build public/index.html"
+    "start": "parcel serve ./src/index.html",
+    "build": "parcel build ./src/index.html"
   },
   "dependencies": {
     "dayjs": "^1.9.4",
@@ -24,7 +23,7 @@
     "semantic-ui-react": "^0.88.2"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "parcel": "next"
   },
   "browserslist": [
     "last 2 ios_saf versions",

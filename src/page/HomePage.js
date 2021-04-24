@@ -1,5 +1,5 @@
 import React from 'react';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { Icon, List } from 'semantic-ui-react';
 import { handleServiceError } from '../components/Util';
@@ -7,7 +7,7 @@ import { handleServiceError } from '../components/Util';
 const HomePage = (props) => {
     return (
         <div className="App">
-            <header className="App-header">            
+            <header className="App-header">
                 <h1 className="App-title"><Icon name='clock' size='big' /> {props.company}</h1>
             </header>
             <div className="Home--link-list">

@@ -23,6 +23,7 @@
     "semantic-ui-react": "^0.88.2"
   },
   "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-rc.0",
     "parcel": "next"
   },
   "browserslist": [

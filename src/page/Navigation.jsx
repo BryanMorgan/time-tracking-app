@@ -2,10 +2,10 @@ import React, { useState, useEffect, } from 'react';
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Dimmer, Dropdown, Icon, Loader, Menu, Responsive } from 'semantic-ui-react'
+import { Dimmer, Dropdown, Icon, Loader, Menu, Grid } from 'semantic-ui-react'
 import { logoutApi } from '../service/authenticate'
 import { logoutAction } from '../action/authenticate'
-import { MOBILE_WIDTH } from '../components/Constants'
+import useIsMobile from '../components/IsMobile';
 
 const MAX_NAME_LENGTH = 20
 const MAX_COMPANY_LENGTH = 40
@@ -13,6 +13,7 @@ const MAX_COMPANY_LENGTH = 40
 const Navigation = (props) => {
     const [pendingLogout, setPendingLogout] = useState(false)
     const [visible, setVisible] = useState(false)
+    const isMobile = useIsMobile();
 
     function logout() {
         setPendingLogout(true)
@@ -89,32 +90,26 @@ const Navigation = (props) => {
         return null
     }
 
-    return (
-        <div>
-            {/* Mobile Header */}
-            <Responsive maxWidth={MOBILE_WIDTH}>
-                <Menu compact size='small' fluid icon>
-                    <Menu.Menu position='left'>
-                        <Dropdown item icon='sidebar' selectOnBlur={false}>
-                            <Dropdown.Menu>
-                                {getLeftMenu()}
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Menu.Menu>
+    if (isMobile) {
+        return (
+            <Menu compact size='small' fluid icon>
+                <Menu.Menu position='left'>
+                    <Dropdown item icon='sidebar' selectOnBlur={false}>
+                        <Dropdown.Menu>
+                            {getLeftMenu()}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Menu.Menu>
 
-                    {getRightMenu()}
-                </Menu>
-            </Responsive>
-
-            {/* Tablet/Desktop Header */}
-            <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-                <Menu size='large' color='blue' fluid icon>
-                    {getLeftMenu()}
-                    {getRightMenu()}
-                </Menu>
-            </Responsive>
-        </div>
-    )
+                {getRightMenu()}
+            </Menu>)
+    } else {
+        return (
+            <Menu size='large' color='blue' fluid icon>
+                {getLeftMenu()}
+                {getRightMenu()}
+            </Menu>)
+    }
 }
 
 

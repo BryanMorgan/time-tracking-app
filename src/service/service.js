@@ -21,7 +21,7 @@ export const fetchApi = async (url, body, method = 'post') => {
             request.body = JSON.stringify(body)
         }
 
-        response = await fetch(process.env.REACT_APP_API_URL + url, request)
+        response = await fetch(import.meta.env.VITE_REACT_APP_API_URL + url, request)
     } catch (err) {
         throw new ServiceError({code: 'FETCH_FAILED', errorMessage: err.message, message: err.message}, 500)
     }
@@ -56,7 +56,7 @@ export const fetchCsvApi = async (url) => {
             })
         }
 
-        response = await fetch(process.env.REACT_APP_API_URL + url, request)
+        response = await fetch(import.meta.env.VITE_REACT_APP_API_URL + url, request)
     } catch (err) {
         throw new ServiceError({code: 'FETCH_FAILED', errorMessage: err.message, message: err.message}, 500)
     }

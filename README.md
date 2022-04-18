@@ -18,19 +18,24 @@ and run
 ```
 npm start
 ```
-which will start the app on [localhost:1234](http://localhost:1234)
+which will start the app on [localhost:3000](http://localhost:3000)
 
 ### Notes
-The app relies on the a `REACT_APP_API_URL` environment variable to connect to the Time Tracking API. The default of http://localhost:8000 is set in the `.env.development` configuration file.
+The app relies on the a `VITE_REACT_APP_API_URL` environment variable to connect to the Time Tracking API. The default of http://localhost:8000 is set in the `.env.development` configuration file.
 
 ## Production Mode
 To build production assets run:
 
 ```
-npm build
+npm run build
 ``` 
 
-And then open `./dist/index.html` using a web server (like [serve](https://www.npmjs.com/package/serve))
+And then open `./dist/index.html` using a web server. For example:
 
-Ensure the `REACT_APP_API_URL` environment variable is set for the production API.
+```
+cd dist
+npx serve
+```
+
+Ensure the `VITE_REACT_APP_API_URL` environment variable is set for the production API.
 

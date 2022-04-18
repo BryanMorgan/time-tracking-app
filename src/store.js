@@ -9,7 +9,7 @@ const reducers = combineReducers({
 })
 
 const logger = createLogger({
-    predicate: () => process.env.NODE_ENV !== 'production'
+    predicate: () => import.meta.env.PROD === false
 });
 
 const store = createStore(

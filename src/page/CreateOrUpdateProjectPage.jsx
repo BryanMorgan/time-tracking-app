@@ -11,7 +11,7 @@ import {
     Icon,
     Input,
     Loader,
-    Responsive,
+    //Responsive,
     Table
 } from 'semantic-ui-react'
 import {
@@ -21,7 +21,6 @@ import {
     getProjectApi,
     updateProjectApi
 } from '../service/clients'
-import { MOBILE_WIDTH } from '../components/Constants'
 import CreateTaskModal from '../components/CreateTaskModal'
 import CreateClientModal from '../components/CreateClientModal'
 import { addAllGlobalTasks, addGlobalTask } from '../action/tasks'
@@ -42,7 +41,7 @@ const CreateOrUpdateProjectPage = (props) => {
     const [projectNameError, setProjectNameError] = useState(false)
     const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false)
     const [openCreateClientModal, setOpenCreateClientModal] = useState(false)
-
+    
     const taskDropdownRef = useRef()
     const clientDropdownRef = useRef()
 
@@ -493,19 +492,10 @@ const CreateOrUpdateProjectPage = (props) => {
 
             taskCells.push(
                 <Table.Cell key={task.id + 'rate'} className='Project--task-table-rate-container'>
-                    <Responsive maxWidth={MOBILE_WIDTH + 1}>
-                        <Input value={task.rate || ''} className='Project--task-table-rate'
-                            onChange={onChangeRate}
-                            onBlur={onBlurRateChange} name={task.id} disabled={!task.billable} />
-                    </Responsive>
-                    <Responsive minWidth={MOBILE_WIDTH}>
-                        <Input value={task.rate || ''} className='Project--task-table-rate'
-                            onChange={onChangeRate}
-                            onBlur={onBlurRateChange} name={task.id} disabled={!task.billable}
-                            icon='dollar sign' iconPosition='left' />
-                    </Responsive>
-                </Table.Cell>
-            )
+                    <Input value={task.rate || ''} className='Project--task-table-rate'
+                        onChange={onChangeRate}
+                        onBlur={onBlurRateChange} name={task.id} disabled={!task.billable} icon='dollar sign' iconPosition='left' />
+                </Table.Cell>)
 
             taskCells.push(
                 <Table.Cell collapsing key={task.id + 'delete'} className='Project--task-table-delete'>

@@ -6,9 +6,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Dimmer, Dropdown, Form, Icon, Input, Loader, Modal, Responsive, Segment, Table } from 'semantic-ui-react';
-import { MOBILE_WIDTH } from '../components/Constants';
+import { Button, Dimmer, Dropdown, Form, Icon, Input, Loader, Modal,  Segment, Table } from 'semantic-ui-react';
 import DeleteProjectTimeRowModal from '../components/DeleteProjectTimeRowModal';
+import useIsMobile from '../components/IsMobile';
 import {
     compareProjects,
     createProjectTaskDateId,
@@ -35,7 +35,7 @@ const TimePage = (props) => {
 
     const [bootupLoading, setBootupLoading] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [isMobile, setIsMobile] = useState(false)
+    const isMobile = useIsMobile();
 
     // Time Entry
     const [currentDate, setCurrentDate] = useState(now)
@@ -75,23 +75,19 @@ const TimePage = (props) => {
     const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short' })
     const longWeekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'long' })
 
+
     useEffect(() => {
-        let mobile = window.innerWidth <= MOBILE_WIDTH
         const { pathname } = props.location
         let startDateFromPath = dayjs(getStartDateFromPath(pathname))
 
         setBootupLoading(true)
-        setIsMobile(mobile)
         setCurrentDate(startDateFromPath)
         getTime(startDateFromPath)
-        getProjectsAndTasks()
-        window.addEventListener('resize', onResize);
-
+        getProjectsAndTasks()    
         return () => {
             if (timeSaveTimer.current) {
                 clearTimeout(timeSaveTimer.current)
             }
-            window.removeEventListener('resize', onResize);
         }
     }, [])
 
@@ -468,14 +464,6 @@ const TimePage = (props) => {
             .catch(console.error)
     }
 
-    function onResize() {
-        if (!isMobile && window.innerWidth <= MOBILE_WIDTH) {
-            setIsMobile(true)
-        }
-        if (isMobile && window.innerWidth > MOBILE_WIDTH) {
-            setIsMobile(false)
-        }
-    }
 
     function updateStartDate(days) {
         let newStartDate = dayjs(startDate).add(days, 'day')
@@ -851,12 +839,9 @@ const TimePage = (props) => {
         </Table.HeaderCell>
     )
 
-    return (
-        <div>
-
-            {/* MOBILE VIEW */}
-
-            <Responsive maxWidth={MOBILE_WIDTH} style={{ width: "100%" }} className="Time--container-mobile">
+    if (isMobile) {
+        return (
+            <div style={{ width: "100%" }} className="Time--container-mobile">
                 <div className='Time--mobile-navigation-top'>
                     <div className='Time--mobile-navigation-buttons-date-nav'>
                         <Button icon onClick={onPreviousDayClick}
@@ -986,12 +971,11 @@ const TimePage = (props) => {
                         <Button onClick={closeProjectTaskModal}>Cancel</Button>
                     </Modal.Actions>
                 </Modal>
-            </Responsive>
-
-
-            {/* DESKTOP VIEW */}
-
-            <Responsive minWidth={768} className="Time--container">
+            </div>)
+    } else {
+        return (
+        <div>
+            <div className="Time--container">
 
                 <div className='Time--navigation'>
                     <div>
@@ -1110,7 +1094,7 @@ const TimePage = (props) => {
                         <Button onClick={closeProjectTaskModal}>Cancel</Button>
                     </Modal.Actions>
                 </Modal>
-            </Responsive>
+            </div>
 
             <DeleteProjectTimeRowModal open={openConfirmDeleteProjectRowModal}
                 onSuccess={onSuccessDeleteProjectRow}
@@ -1121,8 +1105,8 @@ const TimePage = (props) => {
                 startDate={weekStartDate}
                 endDate={weekEndDate} />
 
-        </div>
-    )
+        </div>)
+    }
 }
 
 const mapStateToProps = ({ authenticate }) => {

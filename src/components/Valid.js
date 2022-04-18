@@ -1,4 +1,4 @@
-import {EmailMaxLength, EmailMinLength, PasswordMaxLength, PasswordMinLength} from '../components/Constants'
+import {EmailMaxLength, EmailMinLength, PasswordMaxLength, PasswordMinLength} from './Constants'
 import {
     ClientNameMaxLength,
     ClientNameMinLength,

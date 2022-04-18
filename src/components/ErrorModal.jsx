@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect, } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux'
-import { Button, Icon, Image, Modal, Responsive } from 'semantic-ui-react'
+import { Button, Icon, Image, Modal } from 'semantic-ui-react'
+import useIsMobile from '../components/IsMobile';
 
 const ErrorModal = (props) => {
-
+    const isMobile = useIsMobile();
     const { errorMessage, errorActionMessage, open, onClose } = props
     let actionMessage = errorActionMessage || "Please try your request again"
 
@@ -17,11 +18,7 @@ const ErrorModal = (props) => {
                     : 'Hmmm, an unexpected error happened'}
             </Modal.Header>
             <Modal.Content image>
-                <Responsive as={Image} minWidth={Responsive.onlyTablet.minWidth}>
-                    <div>
-                        <Icon name='warning sign' circular color='orange' size='big' fitted inverted />
-                    </div>
-                </Responsive>
+                {!isMobile ? <Icon name='warning sign' circular color='orange' size='big' inverted /> : ''}
                 <Modal.Description>
                     <h4>{errorMessage}</h4>
                     <p>{actionMessage}</p>

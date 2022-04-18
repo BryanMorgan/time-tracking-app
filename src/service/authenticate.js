@@ -35,7 +35,7 @@ export const tokenApi = async () => {
     let response, json
 
     try {
-        let request = new Request(process.env.REACT_APP_API_URL + '/api/auth/token', {
+        let request = new Request(import.meta.env.VITE_REACT_APP_API_URL + '/api/auth/token', {
             method: 'post',
             // mode: 'same-origin',
             // credentials: 'same-origin',
@@ -74,7 +74,7 @@ export const logoutApi = async () => {
     let response, json
 
     try {
-        let request = new Request(process.env.REACT_APP_API_URL + '/api/auth/logout', {
+        let request = new Request(import.meta.env.VITE_REACT_APP_API_URL + '/api/auth/logout', {
             method: 'post',
             credentials: 'include',
             headers: new Headers({

@@ -1,4 +1,4 @@
-# Time Tracking API
+# Time Tracking - React App
 
 <img align="right" width="128" src="https://user-images.githubusercontent.com/479339/74610686-49244e80-50aa-11ea-8a3d-dd4a11856d6c.png">
 
